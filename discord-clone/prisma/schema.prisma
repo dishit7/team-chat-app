@@ -19,7 +19,7 @@ model Profile {
    name String
    imageUrl String @db.Text
    email String @db.Text
-   ABCD String
+ 
    servers Server[]
    members Member[]
    channels Channel[]

@@ -1,6 +1,7 @@
  "use client"
 
  import * as z from "zod"
+ import axios from "axios"
  import {zodResolver} from "@hookform/resolvers/zod"
  import {useForm} from "react-hook-form"
  import {
@@ -22,6 +23,9 @@
     DialogTitle
 }from "../ui/dialog"
 import { FileUpload } from "../file-upload"
+import { Prisma } from "@prisma/client"
+import { Router } from "lucide-react"
+import {useRouter} from "next/navigation"
 
   const InitialModal=()=>{
     const formschema=z.object({
@@ -43,8 +47,18 @@ import { FileUpload } from "../file-upload"
     })
 
     const isLoading=form.formState.isSubmitting
+    const router= useRouter()
+    const onSubmit=async(values:z.infer<typeof formschema>)=>{
+        console.log(`the values after submiting are: ${JSON.stringify(values)}}`)
+        await axios.post("/api/servers/",values)
+        form.reset()
+        router.refresh()
+        window.location.reload()
+    }
 
-    const onSubmit=async(values:z.infer<typeof formschema>)=>console.log(values)
+    
+    
+
     return (
     <Dialog open>
         <DialogContent className="bg-white text-black p-0 overflow-hidden" >
@@ -63,11 +77,13 @@ import { FileUpload } from "../file-upload"
                          name="imageUrl"
                          render={({field})=>(
                             <FormItem>
-                                <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                                <FileUpload></FileUpload>
-                                </FormLabel>
-                                <FormControl>
-                                 </FormControl>
+                                 <FormControl>
+                                 <FileUpload 
+                                 endpoint="serverImage"
+                                 value={field.value}
+                                  onChange={ field.onChange}
+                                />
+                                  </FormControl>
                             </FormItem>
                          )}
                         ></FormField>
@@ -99,7 +115,7 @@ import { FileUpload } from "../file-upload"
                          
                   </div>
                   <DialogFooter className="bg-gray-100 px-6 py-4">
-                    <Button variant="primary" disabled={isLoading}>
+                    <Button variant="primary" disabled={isLoading} type="submit">
                         Create
                     </Button>
                   </DialogFooter>

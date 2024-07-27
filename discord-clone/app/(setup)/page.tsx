@@ -1,28 +1,38 @@
- import InitialModal from "@/components/intial-modal/intital-modal";
+import InitialModal from "@/components/intial-modal/intital-modal";
 import { db } from "@/lib/db";
 import { initialProfile } from "@/lib/initial-profile";
 import { redirect } from "next/navigation";
 
+const SetupPage = async () => {
+  const profile = await initialProfile();
+  console.log('Fetched profile:', profile); // Debugging log
 
-const SetupPage =async ()=>{
-    const profile =await initialProfile()
-    const server=await db.server.findFirst({
-        where:{
-            members:{
-                some:{
-                    profileId:profile.id
-                }
-            }
-        }
-    })
+  if (!profile || !profile.id) {
+    // Handle the case where profile is undefined or doesn't have an id
+    return ( redirect("/sign-up")
+    );
+  }
 
-    if(server){
-        return redirect(`/server/${server.id}`)
-    }
-    return (
-<div>hiii<InitialModal></InitialModal></div>
+  const server = await db.server.findFirst({
+    where: {
+      members: {
+        some: {
+          profileId: profile.id,
+        },
+      },
+    },
+  });
 
-    )
-}
+  if (server) {
+    return redirect(`/server/${server.id}`);
+  }
+
+  return (
+    <div>
+      <h1>Welcome to the Setup Page</h1>
+      <InitialModal />
+    </div>
+  );
+};
 
 export default SetupPage;
