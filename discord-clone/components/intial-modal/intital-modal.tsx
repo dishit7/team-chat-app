@@ -50,7 +50,7 @@ import {useRouter} from "next/navigation"
     const router= useRouter()
     const onSubmit=async(values:z.infer<typeof formschema>)=>{
         console.log(`the values after submiting are: ${JSON.stringify(values)}}`)
-        await axios.post("/api/servers/",values)
+        await axios.post("/api/servers",values)
         form.reset()
         router.refresh()
         window.location.reload()

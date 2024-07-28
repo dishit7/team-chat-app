@@ -31,8 +31,8 @@ export default function RootLayout({
         "bg-white dark:bg-[#313338]")}   >
       <ThemeProvider
       attribute="class"
-      defaultTheme="light"
-      forcedTheme="light"
+      defaultTheme="dark"
+      forcedTheme="dark"
       enableSystem={false}
       storageKey="discord-theme">
 
