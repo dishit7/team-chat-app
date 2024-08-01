@@ -9,6 +9,7 @@ import {
   UserButton
 } from '@clerk/nextjs'
 import { ThemeProvider } from "next-themes";
+import { ModalProvider } from "@/providers/modal-provider";
 import { cn } from "@/lib/utils";
 
 
@@ -34,7 +35,7 @@ export default function RootLayout({
       defaultTheme="dark"
        enableSystem={false}
       storageKey="discord-theme">
-
+       <ModalProvider />
         {children}
         </ThemeProvider>
 

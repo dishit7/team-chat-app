@@ -2,7 +2,7 @@
 import Image from "next/image"
 import ActionToolTip from "../action-tooltip"
 import { redirect } from "next/navigation"
-
+import { useRouter } from 'next/navigation'
 interface NavigationItemProps{
     id:string,
     name:string,
@@ -13,8 +13,11 @@ const NavigationItems=({
     name,
     imageUrl
 }:NavigationItemProps)=>{
+    const router=useRouter()
+    {console.log(`ids are ${id}`)}
     function handleClick(){
-        redirect(`/servers/${id}`)
+
+        router.push(`/servers/${id}`)
     }
     return ( 
         <div>

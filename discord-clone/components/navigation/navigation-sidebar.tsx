@@ -10,10 +10,13 @@ import { UserButton } from "@clerk/nextjs"
 
 
 export const NavigationSideBar =async()=>{
-
+    console.log("nav sidebar here")
     const profile=  await currentProfile()
+    console.log(profile)
     if(!profile){
+        console.log("here")
         redirect("/")
+        
     }
     const servers=await db.server.findMany({
         where:{
@@ -24,19 +27,24 @@ export const NavigationSideBar =async()=>{
             }
         }
     })
-    return (<>
-      <div className=" space-y-4 flex flex-col items-center h-full text-primary py-3 bg-black">
-        NavSidebar
+    console.log(servers)
+    return ( 
+       <div className=" space-y-4 flex flex-col items-center h-full text-primary py-3 bg-black">
+         NavSidebar
         <NavigationAction />
         <Separator />
         <ScrollArea className="flex-1">
         {servers.map((server)=>{
             return(
+              
                 <div key={server.id}>
                 <NavigationItems name={server.name} id={server.id} imageUrl={server.imageUrl}/>
                 </div>
                 )
-        })
+                
+        }
+        ) 
+
             
         }
         </ScrollArea>
@@ -49,8 +57,7 @@ export const NavigationSideBar =async()=>{
          }}
        />
       </div>
-
-    </>)
+      )
 }
 
 
