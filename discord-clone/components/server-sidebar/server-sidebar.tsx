@@ -32,12 +32,13 @@ const ServerSideBar = async({ serverId }: ServerSideBarProps) => {
         }
 
     })
-    console.log(`Server name: ${servers.name}`);
 
     if (!servers) {
     
         redirect("/")
     }
+    console.log(`Server name: ${servers.name}`);
+
     const textChannels=servers.channels.filter((channel)=>channel.type==="TEXT")
     const audioChannels=servers.channels.filter((channel)=>channel.type==="AUDIO")
     const videoChannels=servers.channels.filter((channel)=>channel.type==="VIDEO")
