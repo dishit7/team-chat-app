@@ -40,7 +40,9 @@ const ServerHeader=({server,role}:ServerHeaderProps)=>{
      }
      {
         isAdmin && (<DropdownMenuItem>
-            server settings
+           <button onClick={()=>{
+            onOpen("editServer",{server})
+           }}>server settings</button> 
         </DropdownMenuItem>)
      }
        {
