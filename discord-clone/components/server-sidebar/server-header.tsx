@@ -47,7 +47,9 @@ const ServerHeader=({server,role}:ServerHeaderProps)=>{
      }
        {
         isModerator && (<DropdownMenuItem>
-            Manage Members
+           <button onClick={()=>{
+                    onOpen("members",{server})
+           } }>Manage Members</button>
         </DropdownMenuItem>)
      }
      {
