@@ -13,7 +13,10 @@ import { ModalProvider } from "@/providers/modal-provider";
 import { cn } from "@/lib/utils";
 
 
-const font = Open_Sans({ subsets: ["latin"] });
+import { Orbitron } from "next/font/google";
+
+const font = Orbitron({ subsets: ["latin"] });
+//const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Team Chat Application",
@@ -29,7 +32,7 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en" suppressHydrationWarning>
       <body className={cn(font.className,
-        "bg-white dark:bg-[#313338]")}   >
+         "bg-white dark:bg-[#313338]")}   >
       <ThemeProvider
       attribute="class"
       defaultTheme="dark"

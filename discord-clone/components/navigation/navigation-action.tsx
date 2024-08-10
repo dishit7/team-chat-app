@@ -7,7 +7,7 @@ export const NavigationAction = () => {
     const {onOpen}=useModal()
   
     return ( 
-        <div >NavAction
+        <div className="">NavAction
             <ActionToolTip label="create server" side="right" align="center" >
             <button className="group flex items-center" onClick={()=>onOpen("createServer")}>
                 <div className="flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden   dark:bg-neutral-700 group-hover:bg-emerald-500 items-center justify-center" >
