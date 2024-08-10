@@ -54,12 +54,12 @@ const ServerHeader=({server,role}:ServerHeaderProps)=>{
      }
      {
         !isAdmin &&(<DropdownMenuItem>
-            Leave Server
+          <button onClick={()=>onOpen("leaveServer",{server})}>Leave Server</button>  
         </DropdownMenuItem>)
      }
       {
         isAdmin &&(<DropdownMenuItem>
-            Delete Server
+           <button onClick={()=>onOpen("deleteServer",{server})} >DeleteServer</button>
         </DropdownMenuItem>)
      }
      <DropdownMenuSeparator />
