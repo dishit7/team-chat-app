@@ -6,7 +6,12 @@ import { Hash, Mic, Shield, ShieldAlert, Video } from "lucide-react"
 import { MemberRole } from "@prisma/client"
 import { ServerSearchModal } from "./server-search"
   import { CommandInput } from "../ui/command"
-interface ServerSideBarProps {
+import { ScrollArea } from "../ui/scroll-area"
+ import { ServerSection } from "./server-section"
+import { Separator } from "../ui/separator"
+import { ServerChannel } from "./server-channel"
+import { ServerMembers } from "./server-members"
+ interface ServerSideBarProps {
     serverId: string
 }
 const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
@@ -61,13 +66,13 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
     const audioChannels = servers.channels.filter((channel) => channel.type === "AUDIO")
     const videoChannels = servers.channels.filter((channel) => channel.type === "VIDEO")
     
-    const role = servers.members.find((member) => member.profileId === profile.id)?.role
+    const role=servers?.members.find((member)=>member.profile.id===profile.id)?.role
     console.log(`role of our member is ${role}`)
     console.log(`servers are ${JSON.stringify(servers)}`)
 
 
     return (
-        <div className="h-full">
+        <ScrollArea className="h-full ">
             <ServerHeader server={servers} role={role} />
        
              <ServerSearchModal data={[{
@@ -113,7 +118,56 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
 
             
             ]} />
-         </div>
+            <Separator className="my-2 bg bg-zinc-100 dark:bg-zinc-500 rounded-md"   />
+              <ServerSection 
+              label="Text Channels"
+              sectionType="Channels"
+              role={role}
+             />
+             {textChannels.map((channel)=>{
+                return(
+                    <ServerChannel channel={channel} role={role}  server={servers}          
+                     
+                    />
+                )
+             })}
+              <ServerSection 
+              label="Audio Channels"
+              sectionType="Channels"
+              role={role}
+             />
+              {audioChannels.map((channel)=>{
+                return(
+                    <ServerChannel channel={channel} role={role}  server={servers}          
+                     
+                    />
+                )
+             })}
+              <ServerSection 
+              label="Video Channels"
+              sectionType="Channels"
+              role={role}
+             />
+              {videoChannels.map((channel)=>{
+                return(
+                    <ServerChannel channel={channel} role={role}  server={servers}          
+                     
+                    />
+                )
+             })}
+             <ServerSection
+             label="Members"
+             sectionType="Members"
+             role={role}/>
+           {  members?.map((member)=>{
+                return(
+                    <ServerMembers  
+                      member={member}
+                      server={servers}
+                      role={role}
+                    />
+                )})}
+         </ScrollArea>
 
     )
 }

@@ -9,7 +9,7 @@ import {
     label:string,
     children:React.ReactNode,
     side:"left" | "right" |"top" |"bottom",
-    align:"start" | "center" | "end"
+    align?:"start" | "center" | "end"
   }
   
 const ActionToolTip=({

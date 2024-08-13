@@ -29,7 +29,7 @@ export const NavigationSideBar =async()=>{
     })
     console.log(servers)
     return ( 
-       <div className=" space-y-4 flex flex-col items-center h-full text-primary py-3 bg-black">
+       <div className=" space-y-4 flex flex-col items-center h-full text-primary py-3 dark:bg-[#1e1f22] bg-[#f0f0f0] ">
          NavSidebar
         <NavigationAction />
         <Separator />
