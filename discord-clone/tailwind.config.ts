@@ -19,6 +19,11 @@ const config = {
     },
     extend: {
       colors: {
+        'navbar': 'var(--navbar-color)',
+        'server-sidebar': 'var(--server-sidebar-color)',
+        'main-interface': 'var(--main-interface-color)',
+        'text': 'var(--text-color)',
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
