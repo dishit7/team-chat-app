@@ -35,7 +35,9 @@ if(!params.serverId){
         },
     
      })
- }
+     return   NextResponse.json(server)
+
+ }else{
  const server=await db.server.update({
     where:(
         {
@@ -47,8 +49,9 @@ if(!params.serverId){
     },
 
  })
-    
-    return NextResponse.json(server)
+ return   NextResponse.json(server)
+
+}
     }catch(err){
         console.log(err)
     }

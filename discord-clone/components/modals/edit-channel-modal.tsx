@@ -22,17 +22,22 @@ import {
    DialogHeader,
    DialogTitle
 }from "../ui/dialog"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
 import { FileUpload } from "../file-upload"
 import {useRouter} from "next/navigation"
-import { useModal } from "@/hooks/use-modal-store"
+import { useModal } from "@/hooks/use-modal-store" 
 
- const CreateServerModal=()=>{
+ const EditChannelModal=()=>{
    const formschema=z.object({
-       name:z.string().min(1,{
-           message:"server name is required"
-       }),
-       imageUrl:z.string().min(1,{
-           message:"Server image is required"
+       name:z.string(),
+       type:z.string().min(1,{
+           message:"You need to select a type"
        })
    })
 
@@ -41,17 +46,18 @@ import { useModal } from "@/hooks/use-modal-store"
        resolver:zodResolver(formschema),
        defaultValues:{
            name:"" ,
-           imageUrl:""
+           type:""
        }
    })
 
    const isLoading=form.formState.isSubmitting
-   const {isOpen,onClose,type}=useModal()
-   const isModalOpen=isOpen && type==="createServer"
    const router= useRouter()
+   const {isOpen,onClose,type,data}=useModal()
+   const isModalOpen=isOpen && type==="editChannel"
+   const {server,channel}=data
    const onSubmit=async(values:z.infer<typeof formschema>)=>{
        console.log(`the values after submiting are: ${JSON.stringify(values)}}`)
-       await axios.post(`/api/servers/${serverId}`,values)
+       await axios.patch(`/api/servers/${server?.id}/edit-channel?channel_id=${channel?.id}`,values)
        form.reset()
        router.refresh()
        window.location.reload()
@@ -70,38 +76,21 @@ import { useModal } from "@/hooks/use-modal-store"
        <DialogContent className="bg-white text-black p-0 overflow-hidden" >
            <DialogHeader className="pt-8 px-6">
                <DialogTitle className="text-2xl text-center font-bold">
-                   Customize your server
+                 Edit your Channel
                </DialogTitle>
-               <DialogDescription className="text-zinc-500 text-center">Give your server with personality with a name and an image .You can always change it later</DialogDescription>
+               <DialogDescription className="text-zinc-500 text-center"> edit your exiting channels</DialogDescription>
            </DialogHeader>
            <Form   {...form}>
                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                  <div className="space-y-8 px-6">
-                   <div className="flex items-center justify-center text-center">
-                       <FormField
-                        control={form.control}
-                        name="imageUrl"
-                        render={({field})=>(
-                           <FormItem>
-                                <FormControl>
-                                <FileUpload 
-                                endpoint="serverImage"
-                                value={field.value}
-                                 onChange={ field.onChange}
-                               />
-                                 </FormControl>
-                           </FormItem>
-                        )}
-                       ></FormField>
-
-                   </div>
+                   
                    <FormField  
                    control={form.control}
                    name="name"
                    render={({field})=>(
                        <FormItem >
                            <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                               Server Name
+                               Channel Name
                            </FormLabel>
                            <FormControl>
                                <Input 
@@ -109,16 +98,41 @@ import { useModal } from "@/hooks/use-modal-store"
                                className="bg-zinc-300/50 
                                focus-visible:ring-0 text-black
                                focus-visible:ring-offset-0"
-                               placeholder="Enter server name"
+                               placeholder="Enter new channel name"
                                {...field}/>
                            </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-red-800" />
                        </FormItem>
                    )}
                    
                    
                    />
-                        
+                   <FormField
+                   control={form.control}
+                   name="type"
+                   render={({field})=>(
+                    <FormItem>
+                          <FormLabel >Select Channel Type</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="bg-zinc-300/50">
+                                <SelectValue   placeholder="Select a type for your channel"></SelectValue>
+                            </SelectTrigger>
+                            </FormControl>
+                            <SelectContent className="bg-zinc-300/50 text-black">
+                                <SelectItem value="TEXT">Text</SelectItem>
+                                <SelectItem value="AUDIO">Audio</SelectItem>
+                                <SelectItem value="VIDEO">Video</SelectItem>
+
+                            </SelectContent>
+                          </Select>
+                          <FormMessage className="text-red-800"/>
+                    </FormItem>
+                  
+
+                   )}
+
+                        />
                  </div>
                  <DialogFooter className="bg-gray-100 px-6 py-4">
                    <Button variant="primary" disabled={isLoading} type="submit">
@@ -132,4 +146,4 @@ import { useModal } from "@/hooks/use-modal-store"
 }
 
 
-export default CreateServerModal
+export default EditChannelModal

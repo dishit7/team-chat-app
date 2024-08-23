@@ -117,11 +117,11 @@ import { useModal } from "@/hooks/use-modal-store"
                           <FormLabel >Select Channel Type</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Select a type for your channel"></SelectValue>
+                            <SelectTrigger className="bg-zinc-300/50">
+                                <SelectValue   placeholder="Select a type for your channel"></SelectValue>
                             </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="bg-zinc-300/50 text-black">
                                 <SelectItem value="TEXT">Text</SelectItem>
                                 <SelectItem value="AUDIO">Audio</SelectItem>
                                 <SelectItem value="VIDEO">Video</SelectItem>

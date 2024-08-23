@@ -37,8 +37,8 @@ export const ServerSearchModal = ({ data }: SearchServerProps) => {
         <button onClick={() => {
             console.log(`when close is called onOpen is also called probably again `)
             onOpen("search")
-        }} className="h-5  bg bg-zinc-500 w-full flex items-center ">
-          <p className="text-center ml-3">Search</p>  <Search className="h-4 w-4 mr-3" />
+        }} className="h-5  bg bg-transparent w-full flex items-center py-4">
+          <p className="text-center ml-7 ">Search  </p>  <Search className="h-5 w-5 mr-3 ml-1" />
         </button>
 
         <CommandDialog open={open} onOpenChange={() => {

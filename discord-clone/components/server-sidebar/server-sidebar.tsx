@@ -138,7 +138,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
              />
               {audioChannels.map((channel)=>{
                 return(
-                    <ServerChannel channel={channel} role={role}  server={servers}          
+                    <ServerChannel key={channel.id} channel={channel} role={role}  server={servers}          
                      
                     />
                 )
