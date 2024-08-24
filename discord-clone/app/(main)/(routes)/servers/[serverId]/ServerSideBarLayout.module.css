@@ -1,0 +1,17 @@
+/* ServerSidebar.module.css */
+.sidebar {
+    background-color: var(--server-sidebar-color); /* Custom variable for bg-server-sidebar */
+    width: 10rem; /* Equivalent to w-40 */
+    z-index: 20; /* z-20 */
+    display: none;
+    flex-direction: column;
+    position: fixed;
+     top:0;
+     bottom:0; /* inset-y-0 */
+  
+    /* Equivalent to md:flex */
+    @media (min-width: 768px) {
+      display: flex;
+    }
+  }
+  

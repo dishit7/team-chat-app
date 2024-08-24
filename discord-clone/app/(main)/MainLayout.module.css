@@ -1,0 +1,26 @@
+/* MainLayout.module.css */
+.navigationSidebar {
+    display: none;
+    height: 100%;
+    width: 72px;
+    z-index: 30;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: var(--navbar-color);
+  }
+  
+  .mainContent {
+    height: 100%;
+  }
+  
+  @media (min-width: 768px) {
+    .navigationSidebar {
+      display: flex;
+    }
+  
+    .mainContent {
+      padding-left: 72px;
+    }
+  }
