@@ -11,13 +11,10 @@ const ServerSideBarLayout=async({children,params}:{
 return (
 <div className="h-full">
     <div className="bg bg-server-sidebar w-40 z-20 flex flex-col fixed inset-y-0 sm:hidden ">
- 
-    {}
     <ServerSideBar serverId={params.serverId} />
     </div>
-    <div className="md:pl-[160px] h-full text-text">
-    <div>Server Sidebar comp</div>  
-    {children}
+    <div className="md:pl-[160px] h-full text-text border border-green-500">
+     {children}
     </div>
 </div>
 )
