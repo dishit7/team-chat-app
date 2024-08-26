@@ -8,7 +8,7 @@ interface MobileToggleProps{
 export function MobileToggle({serverId}:MobileToggleProps){
     {console.log(`[MOBILE TOGGLE COMP] SERVERID IS ${serverId}`)}
     return (
-        <div>
+        <div className="md:hidden">
             <Sheet>
                 <SheetTrigger>
                     <Menu/>

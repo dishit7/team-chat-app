@@ -3,15 +3,15 @@ import { Avatar, AvatarImage } from "./avatar";
 
 interface  UserAvatarProps{
     src?:string,
-    classname?:string
+    className?:string
 }
 export function UserAvatar ({
     src,
-    classname
+    className
 }:UserAvatarProps){
     return(
-        <Avatar className={cn("h-7 w-7 md:h-10 md:w-10",
-                               classname)}>
+        <Avatar className={cn("h-7 w-7 ",
+                               className)}>
             <AvatarImage src={src}></AvatarImage>
         </Avatar>
     )

@@ -13,7 +13,7 @@ return (
     <div className={styles.sidebar}>
     <ServerSideBar serverId={params.serverId} />
     </div>
-    <div className="md:pl-[160px] h-full text-text border border-green-500">
+    <div className="md:pl-[160px] h-full text-text border  ">
      {children}
     </div>
 </div>
