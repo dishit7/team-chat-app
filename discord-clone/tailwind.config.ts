@@ -29,6 +29,7 @@ const config = {
         'server-sidebar': 'var(--server-sidebar-color)',
         'main-interface': 'var(--main-interface-color)',
         'text': 'var(--text-color)',
+        'channels-list-color':'var(--channels-list-color)',
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

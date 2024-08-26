@@ -17,7 +17,7 @@ export const ServerSection=({label,sectionType,role,channelType,server}:ServerSe
     const {isOpen,onOpen}=useModal()
     return(
      <>  
-     <div className="flex font-bold text-zinc-300 text">{label}
+     <div className="flex font-bold  text">{label}
      {role!=="GUEST" && sectionType==="Channels" &&(
      <ActionToolTip label="Create Channel" side="top">
         <button onClick={()=>onOpen("createChannel")}><Plus className="h-4 w-4 mx-1"/></button>

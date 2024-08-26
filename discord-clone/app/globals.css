@@ -43,12 +43,16 @@
       --server-sidebar-color-dark: #2f3136;
       --main-interface-color-dark: #36393f;
       --text-dark: #ffffff;
+      --channels-list-color-light:#a1a1aa ;
+      --channels-list-color-dark:#a1a1aa ; 
     
       /* Default to light mode */
       --navbar-color: var(--navbar-color-light);
       --server-sidebar-color: var(--server-sidebar-color-light);
       --main-interface-color: var(--main-interface-color-light);
       --text-color: var(--text-light);
+      --channels-list-color: var(--channels-list-color-light)       /* In the server side bar when you list the channels name under heading TEXT,AUDIO,VIDEO channels this style is for those channel names */
+
     }
 
     .dark {
@@ -84,6 +88,8 @@
       --server-sidebar-color: var(--server-sidebar-color-dark);
       --main-interface-color: var(--main-interface-color-dark);
       --text-color: var(--text-dark);
+      --channels-list-color:  var(--channels-list-color-dark) /* In the server side bar when you list the channels name under heading TEXT,AUDIO,VIDEO channels this style is for those channel names */
+
     
     }
   }

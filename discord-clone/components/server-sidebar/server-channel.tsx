@@ -33,7 +33,7 @@ export const ServerChannel = ({ channel, server, role }: ServerChannelProps) => 
                 router.push(`/servers/${params.serverId}/channels/${channel.id}`)
                 return
             }}>
-                <div className="flex items-center mt-2 text-zinc-400">
+                <div className="flex items-center mt-2 text-channels-list-color">
                     {RoleIconMap[channel.type]}
                     <p>{channel.name}</p>
                     {channel.name === "general" ? <Lock className="h-4 w-4 ml-auto" /> : ""}
