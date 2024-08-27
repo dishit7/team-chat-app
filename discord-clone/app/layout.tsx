@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 
 
 import { Orbitron } from "next/font/google";
+import { SocketProvider } from "@/providers/socket-provider";
 
 const font = Orbitron({ subsets: ["latin"] });
 //const font = Open_Sans({ subsets: ["latin"] });
@@ -38,8 +39,10 @@ export default function RootLayout({
       defaultTheme="dark"
        enableSystem={false}
       storageKey="discord-theme">
+        <SocketProvider>
        <ModalProvider />
         {children}
+        </SocketProvider>
         </ThemeProvider>
 
         </body>
