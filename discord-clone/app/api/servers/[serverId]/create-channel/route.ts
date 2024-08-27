@@ -17,6 +17,9 @@ if(!params.serverId){
     return new NextResponse("ServerId missing",{status:400})    
 }
 const serverId=params.serverId
+console.log(`SERVERID IN CHANNELS IS ${serverId}`)
+console.log(`Full params object: ${JSON.stringify(params)}`);
+
 const value=await req.json() as createChannel
 const {name}=value
 const {type}=value

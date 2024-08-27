@@ -13,9 +13,9 @@ interface ServerChannelProps {
 }
 
 const RoleIconMap = {
-    "TEXT": <Hash className="h-4 w-4 mx-1" />,
-    "AUDIO": <Mic />,
-    "VIDEO": <Video />
+    "TEXT": <Hash className="h-4 w-4 mx-1" style={{ height: '24px', width: '24px' }} />,
+    "AUDIO": <Mic className="h-4 w-4 mx-1" style={{ height: '24px', width: '24px' }}/>,
+    "VIDEO": <Video className="h-4 w-4 mx-1" style={{ height: '24px', width: '24px' }}/>
 }
 
 export const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
@@ -36,11 +36,11 @@ export const ServerChannel = ({ channel, server, role }: ServerChannelProps) => 
                 <div className="flex items-center mt-2 text-channels-list-color">
                     {RoleIconMap[channel.type]}
                     <p>{channel.name}</p>
-                    {channel.name === "general" ? <Lock className="h-4 w-4 ml-auto" /> : ""}
+                    {channel.name === "general" ? <Lock className="h-5 w-5 ml-2" /> : ""}
                     {channel.name !== "general" && role !== "GUEST" && (
                         <>
                             <ActionToolTip label="edit channel" side="top">
-                                <Edit className="h-4 w-4 mx-1" onClick={(e) => handleClick(e, "editChannel")} />
+                                <Edit className="h-4 w-4 mx-1" onClick={(e) => handleClick(e, "editChannel")} style={{ height: '16px', width: '16px' }}/>
                             </ActionToolTip>
                             <ActionToolTip label="delete channel" side="top">
                                 <Trash className="h-4 w-4" />

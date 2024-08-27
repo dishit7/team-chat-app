@@ -135,6 +135,8 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
                 label="Audio Channels"
                 sectionType="Channels"
                 role={role}
+                server={servers}
+
             />
             {audioChannels.map((channel) => {
                 return (
@@ -147,6 +149,8 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
                 label="Video Channels"
                 sectionType="Channels"
                 role={role}
+                server={servers}
+
             />
             {videoChannels.map((channel) => {
                 return (
@@ -158,7 +162,9 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
             <ServerSection
                 label="Members"
                 sectionType="Members"
-                role={role} />
+                role={role}
+                server={servers}
+                />
             {members?.map((member) => {
                 if (member.profileId === profile?.id) {
                     return null
@@ -175,5 +181,5 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
         </ScrollArea>
 
     )
-}
+} 
 export default ServerSideBar
