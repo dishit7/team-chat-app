@@ -1,7 +1,7 @@
 /* ServerSidebar.module.css */
 .sidebar {
     background-color: var(--server-sidebar-color); /* Custom variable for bg-server-sidebar */
-    width: 15rem; /* Equivalent to w-40 */
+    width: 15rem; /* Equivalent to w-60 */
     z-index: 20; /* z-20 */
     display: none;
     flex-direction: column;

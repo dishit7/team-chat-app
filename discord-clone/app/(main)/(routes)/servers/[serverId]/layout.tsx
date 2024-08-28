@@ -9,11 +9,11 @@ const ServerSideBarLayout=async({children,params}:{
         //#f1f5f9
         //dark:bg-[#2b2d31]  bg-[#ffffff]
 return (
-<div className="h-full">
+<div className="flex h-screen">
     <div className={styles.sidebar}>
     <ServerSideBar serverId={params.serverId} />
     </div>
-    <div className="md:pl-[160px] h-full text-text border  ">
+    <div className="flex-1 flex flex-col h-full md:ml-[240px] text-text border border-blue-700">
      {children}
     </div>
 </div>
