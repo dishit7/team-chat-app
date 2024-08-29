@@ -5,6 +5,8 @@ import * as z from 'zod'
 import { Form, FormField, FormControl, FormItem } from '../ui/form'
 import { Input } from '../ui/input'
 import { Plus } from 'lucide-react'
+import axios from "axios"
+import  qs from 'query-string'
 interface ChatInputProps {
     apiUrl: string,
     query: Record<string, any>,
@@ -31,7 +33,18 @@ export function ChatInput({
     })
     const isLoading = form.formState.isLoading
     const onSubmit = async (value: z.infer<typeof formSchema>) => {
-        console.log(value)
+        try{
+            const url=qs.stringifyUrl({
+                url:apiUrl,
+                query
+            })
+            const response =await axios.post(url,{
+                ...value,
+                ...query})
+            console.log(response)
+         }catch(Err){
+            console.log("[CHAT FORM ERROR]",Err)
+         }
     }
     return (
         <Form {...form} >
