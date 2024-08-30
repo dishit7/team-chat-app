@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 
 import { Orbitron } from "next/font/google";
 import { SocketProvider } from "@/providers/socket-provider";
+import { QueryClientProvider } from "@tanstack/react-query";
+import QueryProvider from "@/providers/query-provider";
 
 const font = Orbitron({ subsets: ["latin"] });
 //const font = Open_Sans({ subsets: ["latin"] });
@@ -41,7 +43,9 @@ export default function RootLayout({
       storageKey="discord-theme">
         <SocketProvider>
        <ModalProvider />
+       <QueryProvider  >
         {children}
+        </QueryProvider>
         </SocketProvider>
         </ThemeProvider>
 
