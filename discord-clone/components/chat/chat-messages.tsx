@@ -5,6 +5,9 @@ import { ChatWelcome } from "./chat-welcome"
 import { useChatQuery } from "@/hooks/use-chatQuery"
 import { Loader2, ServerCrash } from "lucide-react"
 import { Fragment } from "react"
+import { ChatItems } from "./chat-items"
+import { channel } from "process"
+import { UploadAbortedError } from "@uploadthing/shared"
 
 interface ChatMessageProps {
     name: string,
@@ -78,10 +81,9 @@ export function ChatMessages({
                                { group.items.map((message:MessageWithMembersWithProfiles)=>{
                                   {console.log(`MESSAGE is ${message.content}`)}
                                 return (
-                                    <div key={message.id} >
-                                      {message.content}
-                                    
-                                    </div>
+                                     
+                                    <ChatItems id={message.id} content={message.content} fileUrl={null} member={message.member} channelId={message.channelId} deleted={false} createdAt={message.createdAt} updatedAt={message.updatedAt} apiUrl={"/api/socket/messages"} socketUrl={"/api"} socketQuery={socketQuery} />
+                                     
                                 )
                                })} 
                                 
