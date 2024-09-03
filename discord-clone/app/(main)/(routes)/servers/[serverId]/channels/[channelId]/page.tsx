@@ -3,8 +3,7 @@ import { ChatInput } from "@/components/chat/chat-input"
 import { ChatMessages } from "@/components/chat/chat-messages"
 import { currentProfile } from "@/lib/current-profile"
 import { db } from "@/lib/db"
-import { serverHooks } from "next/dist/server/app-render/entry-base"
-import { redirect } from "next/navigation"
+ import { redirect } from "next/navigation"
 interface ChannelIdPageProps {
     params: {
         serverId: string,

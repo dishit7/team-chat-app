@@ -1,12 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+community-chat
 /node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
 more_things.txt
-
+    clerk_error_figure_out_diff.txt
 # testing
 /coverage
 

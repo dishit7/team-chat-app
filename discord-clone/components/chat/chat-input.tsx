@@ -7,6 +7,7 @@ import { Input } from '../ui/input'
 import { Plus } from 'lucide-react'
 import axios from "axios"
 import  qs from 'query-string'
+import { useModal } from '@/hooks/use-modal-store'
 interface ChatInputProps {
     apiUrl: string,
     query: Record<string, any>,
@@ -31,6 +32,7 @@ export function ChatInput({
         }
 
     })
+    const {onOpen}=useModal()
     const isLoading = form.formState.isLoading
     const onSubmit = async (value: z.infer<typeof formSchema>) => {
         try{
@@ -42,6 +44,8 @@ export function ChatInput({
                 ...value,
                 ...query})
             console.log(response)
+            
+            form.reset()
          }catch(Err){
             console.log("[CHAT FORM ERROR]",Err)
          }
@@ -52,6 +56,7 @@ export function ChatInput({
                 <FormField
                     control={form.control}
                     name="content"
+                    disabled={isLoading}
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
@@ -59,7 +64,8 @@ export function ChatInput({
                                     <button
                                         type="button"
                                         className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600  dark:hover:bg-zinc-300 rounded-full transition flex items-center justify-center p-1"
-                                    >
+                                        onClick={()=>onOpen('fileMessage',{apiUrl,query})}
+                                     >
                                         <Plus className=" text-white h-4 w-4" />
                                         </button>
 

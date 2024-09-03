@@ -4,6 +4,7 @@ import CreateServerModal from "@/components/modals/create-server-modal"
 import DeleteServerModal from "@/components/modals/delete-server-modal"
 import EditChannelModal from "@/components/modals/edit-channel-modal"
 import EditServerModal from "@/components/modals/edit-server-modal"
+import FileChatUploadMoad from "@/components/modals/file-chat-upload-modal"
 import InviteServerModal from "@/components/modals/invite-modal"
 import LeaveServerModal from "@/components/modals/leave-server"
 import ManageMembersModal from "@/components/modals/manage-members-modal"
@@ -20,6 +21,7 @@ export const    ModalProvider=()=>{
         <CreateChannelModal />
         <LeaveServerModal />
         <DeleteServerModal />
+        <FileChatUploadMoad/>
         
         </>
     )

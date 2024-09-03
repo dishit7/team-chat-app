@@ -3,7 +3,7 @@ import { db } from "@/lib/db"
 import { NextRequest, NextResponse } from "next/server"
 import { Message } from "@prisma/client"
 
-export async function POST(req:Request,res:NextResponse){
+export async function POST(req:NextRequest,res:NextResponse){
     try{
         const profile=await currentProfile()
         if(!profile)
@@ -13,15 +13,20 @@ export async function POST(req:Request,res:NextResponse){
         
 
         const body = await req.json()
-        const { content,fileUrl, serverId, channelId } = body
+        const { content,fileUrl,  } = body
+        const searchParams =req.nextUrl.searchParams
+        const serverId=searchParams.get('serverId')
+        const channelId=searchParams.get('channelId')
 
+        console.log(`NEW the body is ${JSON.stringify({body})}`)
         console.log(`serverid and chanels id are ${serverId} ${channelId}`)
- 
+        console.log(`the file url is ${JSON.stringify(fileUrl)} and server id is ${serverId} those uploads right`)
+
         if(!content){
             return new NextResponse("Content is missing")
         }
         if(!serverId){
-            return new NextResponse("ServerId is missing")
+            return new NextResponse("ServerId is missing",{status:450})
         }
         if(!channelId){
             return new NextResponse("ChannelId is missing")
