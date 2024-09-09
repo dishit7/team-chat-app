@@ -8,6 +8,7 @@ import { Fragment } from "react"
 import { ChatItems } from "./chat-items"
 import { channel } from "process"
 import { UploadAbortedError } from "@uploadthing/shared"
+import { useChatSocketHook } from "@/hooks/chat-socket-hook"
 
 interface ChatMessageProps {
     name: string,
@@ -34,8 +35,14 @@ export function ChatMessages({
     type
 }: ChatMessageProps) {
 
+    
+    
     const queryKey=`chat:${chatId}`
-
+    const addKey=`chat:${chatId}:messages`
+    const updateKey=`chat:${chatId}:messages:update`
+    console.log(`ADD KEY FOR THIS CHAT IS ${chatId}`)
+    useChatSocketHook({queryKey,addKey,updateKey})
+    
     type MessageWithMembersWithProfiles=Message&{member:Member&{
         profile:Profile
     }}
@@ -46,6 +53,8 @@ export function ChatMessages({
         isFetchingNextPage, 
         status 
     } = useChatQuery({queryKey,apiUrl,paramKey,paramValue})
+
+
     if(status==="pending")
     {
         return(
@@ -54,7 +63,7 @@ export function ChatMessages({
             <p>Loading Messages...</p>
             </div>
         )
-    }
+    } 
     if(status==="error"){
        return (
         <div className="flex flex-col flex-1 items-center justify-center">
@@ -69,7 +78,7 @@ export function ChatMessages({
                    <div className="flex-1" />
             
             <ChatWelcome /> 
-            
+            <h1>{addKey}</h1>
             <div className="flex flex-col-reverse mt-auto border border-purple-600 ">
                 
                 {
@@ -94,7 +103,7 @@ export function ChatMessages({
                     })
                 }
                             </div>
-            
+             
          </div >
     )
 }
