@@ -3,6 +3,7 @@
 # dependencies
 community-chat
 /node_modules
+../node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -39,3 +40,7 @@ next-env.d.ts
 community-chat/
 diff.txt
 chat-sokcet-hook-impl
+
+#additional
+.vscode/
+.nvmrc
