@@ -1,6 +1,7 @@
 import { ChatHeader } from "@/components/chat/chat-header"
 import { ChatInput } from "@/components/chat/chat-input"
 import { ChatMessages } from "@/components/chat/chat-messages"
+import VideoStream from "@/components/video/video-stream"
 import { currentProfile } from "@/lib/current-profile"
 import { db } from "@/lib/db"
  import { redirect } from "next/navigation"
@@ -51,7 +52,12 @@ async function ChannelsIdPage({ params }: ChannelIdPageProps) {
             ></ChatInput>
 
 
+            {channel.type === "VIDEO" && (
+                <VideoStream channelId={channel.id} />
+            )} 
+
         </div>
     )
 }
+//http://localhost:3000/invite/97d9f61b-d678-4502-96c1-630ffc489d6e
 export default ChannelsIdPage
