@@ -1,11 +1,12 @@
-{
-  "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+{"compilerOptions": {
+  "sourceMap": true,
+  "inlineSources": true,
+  "noEmit": true,
+  "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "skipLibCheck": true,
+     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
+     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
