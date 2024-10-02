@@ -51,7 +51,7 @@ import { useModal } from "@/hooks/use-modal-store"
    const router= useRouter()
    const onSubmit=async(values:z.infer<typeof formschema>)=>{
        console.log(`the values after submiting are: ${JSON.stringify(values)}}`)
-       await axios.post(`/api/servers/${serverId}`,values)
+       await axios.post(`/api/servers`,values)
        form.reset()
        router.refresh()
        window.location.reload()
