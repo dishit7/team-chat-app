@@ -23,17 +23,59 @@ export const SocketProvider=({children}:{children:React.ReactNode})=>{
     const [isConnected,setIsConnected]=useState(false)
     useEffect(()=>{
         const socketInstance=new(ClientIO as any)(process.env.NEXT_PUBLIC_SITE_URL!,{
-            path:"/api/socket/io",
+             path:"/api/socket/io",
+            reconnectionDelay: 1000,
+            reconnection: true,
+            reconnectionAttemps: 10,
             addTrailingSlash:false
         })
 
         socketInstance.on("connect",()=>{
             console.log(`SETTING IS CONNECTED TO TRUE`)
+            console.log(`Socket connected with ID: ${socketInstance.id}`);
+
             return(
             setIsConnected(true)
         )}
         ),
-        socketInstance.on("disconnect",()=>setIsConnected(false)),
+
+        // socketInstance.on("disconnect", (reason, details) => {
+        //     // the reason of the disconnection, for example "transport error"
+        //     console.log(reason);
+          
+        //     // the low-level reason of the disconnection, for example "xhr post error"
+        //     console.log(details.message);
+          
+        //     // some additional description, for example the status code of the HTTP response
+        //     console.log(details.description);
+          
+        //     // some additional context, for example the XMLHttpRequest object
+        //     console.log(`CONTEXT FOR THE DISCONECT ${JSON.stringify(details.context)}`);
+        //   });
+
+        socketInstance.on("connect_error", (err) => {
+            // the reason of the error, for example "xhr poll error"
+            console.log(err.message);
+          
+            // some additional description, for example the status code of the initial HTTP response
+            console.log(err.description);
+          
+            // some additional context, for example the XMLHttpRequest object
+            console.log(err.context);
+          });
+
+          socketInstance.on("connect", () => {
+            const transport = socketInstance.io.engine.transport.name; // in most cases, "polling"
+            console.log(`The transport is ${transport}`)
+            socketInstance.io.engine.on("upgrade", () => {
+              const upgradedTransport = socketInstance.io.engine.transport.name;
+              console.log(`The upgradedTransport is ${upgradedTransport}`)
+
+              
+              // in most cases, "websocket"
+            });
+
+          });
 
         setSocket(socketInstance)
 
