@@ -1,5 +1,5 @@
 'use client'
-import { Channel, MemberRole, Server } from "@prisma/client"
+import { Channel, ChannelType, MemberRole, Server } from "@prisma/client"
 import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react"
 import ActionToolTip from "../action-tooltip"
 import { ModalType, useModal } from "@/hooks/use-modal-store"
@@ -14,10 +14,9 @@ interface ServerChannelProps {
 
 const RoleIconMap = {
     "TEXT": <Hash className="h-4 w-4 mx-1" style={{ height: '24px', width: '24px' }} />,
-    "AUDIO": <Mic className="h-4 w-4 mx-1" style={{ height: '24px', width: '24px' }}/>,
-    "VIDEO": <Video className="h-4 w-4 mx-1" style={{ height: '24px', width: '24px' }}/>
+    "AUDIO": <Mic className="h-4 w-4 mx-1" style={{ height: '24px', width: '24px' }} />,
+    "VIDEO": <Video className="h-4 w-4 mx-1" style={{ height: '24px', width: '24px' }} />
 }
-
 export const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
     const { onOpen } = useModal()
     const handleClick = (e: React.MouseEvent, action: ModalType) => {
@@ -26,6 +25,36 @@ export const ServerChannel = ({ channel, server, role }: ServerChannelProps) => 
     }
     const params = useParams()
     const router = useRouter()
+
+
+
+    async function channelSelection(channel: Channel) {
+        if (channel.type === "TEXT") {
+            router.push(`/servers/${params?.serverId}/channels/${channel.id}`);
+            // Fetch and display messages
+        } else if (channel.type === "AUDIO" || channel.type === "VIDEO") {
+            // Handle audio or video channel (WebRTC setup)
+            await setupMedia(channel.type);
+        }
+    }
+
+    const setupMedia = async (channeltype: ChannelType) => {
+        const constraints = {
+            video: channeltype === "VIDEO",
+            audio: true
+        }
+        try {
+
+            const stream = await navigator.mediaDevices.getUserMedia(constraints)
+            const localVideoElement=document.getElementById('localVideo') as HTMLVideoElement
+            if(localVideoElement){
+                localVideoElement.srcObject=stream
+            }
+
+        } catch (Err) {
+            console.log(Err)
+        }
+    }
 
     return (
         <>
@@ -40,7 +69,7 @@ export const ServerChannel = ({ channel, server, role }: ServerChannelProps) => 
                     {channel.name !== "general" && role !== "GUEST" && (
                         <>
                             <ActionToolTip label="edit channel" side="top">
-                                <Edit className="h-4 w-4 mx-1" onClick={(e) => handleClick(e, "editChannel")} style={{ height: '16px', width: '16px' }}/>
+                                <Edit className="h-4 w-4 mx-1" onClick={(e) => handleClick(e, "editChannel")} style={{ height: '16px', width: '16px' }} />
                             </ActionToolTip>
                             <ActionToolTip label="delete channel" side="top">
                                 <Trash className="h-4 w-4" />
@@ -52,3 +81,5 @@ export const ServerChannel = ({ channel, server, role }: ServerChannelProps) => 
         </>
     )
 }
+
+

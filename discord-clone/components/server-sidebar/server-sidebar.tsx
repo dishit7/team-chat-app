@@ -1,4 +1,4 @@
-import { currentProfile } from "@/lib/current-profile"
+  import { currentProfile } from "@/lib/current-profile"
 import ServerHeader from "./server-header"
 import { redirect } from "next/navigation"
 import { db } from "@/lib/db"
@@ -14,6 +14,7 @@ import { ServerMembers } from "./server-members"
 interface ServerSideBarProps {
     serverId: string
 }
+debugger;
 const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
     const profile = await currentProfile()
     if (!profile) {
@@ -31,7 +32,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
         [MemberRole.ADMIN]: <ShieldAlert className="ml-2  text-green-500" size={50} />,
         [MemberRole.MODERATOR]: <Shield className="ml-2  " />
     }
-
+    debugger;
     const servers = await db.server.findUnique({
         where: {
             id: serverId
@@ -52,9 +53,17 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
         }
 
     })
-
+    const channels = await db.channel.findMany({
+        where: { serverId: serverId }
+      });
+      console.log(`CHANNELS ARE :${JSON.stringify(channels)} channels`);
     const members = servers?.members
-    console.log(`there are lot of members ${members}`)
+    console.log(`SERVER ID WE ARE SEARCHING FOR ${serverId}`)
+    console.log(`SERVERS FOR HANMADISH ARE ${JSON.stringify(servers)}`)
+
+  //  console.log(`there are lot of members ${members}`)
+    console.log(`CHANNELS FOR HANMADISH ARE ${JSON.stringify(servers?.channels)}`)
+
 
     if (!servers) {
 

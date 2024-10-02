@@ -1,5 +1,5 @@
 'use client'
-import ServerWithMembersWithProfiles from "@/types"
+import {ServerWithMembersWithProfiles} from "@/types"
 import { MemberRole } from "@prisma/client"
 import {useSearchParams}  from "next/navigation"
 import {
