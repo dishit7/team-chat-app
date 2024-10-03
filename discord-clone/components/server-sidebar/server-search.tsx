@@ -51,11 +51,11 @@ export const ServerSearchModal = ({ data }: SearchServerProps) => {
             <CommandList>
                 {data?.map((group) => {
                     return (
-                        <CommandGroup heading={group.label} >
+                        <CommandGroup heading={group.label} key={group.label} >
                             {group.data?.map((items) => {
                                 console.log(`items has icons ${items.icon}`)
                                 return (
-                                    <CommandItem>{items.name}{items.icon}</CommandItem>
+                                    <CommandItem key={items.id}>{items.name}{items.icon}</CommandItem>
                                 )
                             })
                             }

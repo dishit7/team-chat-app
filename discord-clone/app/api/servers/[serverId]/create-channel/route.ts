@@ -24,7 +24,7 @@ const value=await req.json() as createChannel
 const {name}=value
 const {type}=value
 if(!value){
-    return null
+    return new NextResponse("Value missing",{status:400})    
 }
 const channel=await db.channel.create({
     data:{
@@ -41,5 +41,7 @@ console.log(`channel created is ${JSON.stringify(channel)}`)
 return NextResponse.json(channel)
  }catch(err){
     console.log(["CHANNEL CREATION"],err)
+    return new NextResponse("Internal Server Error", { status: 500 }); // Ensure error responses are sent
+
  }
 }

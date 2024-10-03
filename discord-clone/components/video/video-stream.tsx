@@ -8,7 +8,7 @@ interface VideoStreamProps {
 
 const VideoStream = ({ channelId }: VideoStreamProps) => {
   const [peers, setPeers] = useState<RTCPeerConnection[]>([]);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const videoRefs = useRef<{[key:string]:HTMLVideoElement | null}>({});
   const socketRef = useRef<any>(null);
   const localStreamRef = useRef<MediaStream | null>(null);
   const localVideoRef = useRef<HTMLVideoElement | null>(null); // Ref for local video
@@ -62,7 +62,7 @@ const VideoStream = ({ channelId }: VideoStreamProps) => {
       socketRef.current.disconnect();
       peers.forEach((peer) => peer.close());
     };
-  }, [peers]); // Add `peers` to the dependency array
+  }, [channelId,peers]); // Add `peers` to the dependency array
 
   const createPeer = (
     userToSignal: string,
@@ -79,7 +79,13 @@ const VideoStream = ({ channelId }: VideoStreamProps) => {
       }
     };
     peer.ontrack = (event) => {
-      videoRefs.current[userToSignal].srcObject = event.streams[0];
+      const videoElement = videoRefs.current[userToSignal];
+      if (videoElement) { // Check if videoElement is not null
+        videoElement.srcObject = event.streams[0];
+      } else {
+        console.warn(`Video element for user ${userToSignal} is not found.`);
+      }
+    
     };
 
     stream.getTracks().forEach((track) => peer.addTrack(track, stream));
@@ -112,7 +118,12 @@ const VideoStream = ({ channelId }: VideoStreamProps) => {
       }
     };
     peer.ontrack = (event) => {
-      videoRefs.current[callerId].srcObject = event.streams[0];
+      const videoElement = videoRefs.current[callerId];
+      if(videoElement){
+        videoElement.srcObject = event.streams[0];
+      }else{
+        console.warn(`Video element for user ${callerId} is not found.`);
+      }
     };
 
     stream.getTracks().forEach((track) => peer.addTrack(track, stream));

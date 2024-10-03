@@ -12,7 +12,7 @@ export async function PATCH(req:NextRequest,{params,searchParams}:{params:{membe
          const searchParams=req.nextUrl.searchParams
          const serverId=searchParams.get('serverId')
          if(!serverId){
-            return null
+            return new NextResponse("Server ID is required", { status: 400 });
          }
          const {role}=await req.json() 
          console.log(`role to change is ${role}`)
@@ -20,7 +20,7 @@ export async function PATCH(req:NextRequest,{params,searchParams}:{params:{membe
          console.log(`serverId frm searchParams is ${serverId}`)
           
          if(!role){
-            return null
+            return new NextResponse("Role is required", { status: 400 });
          }
          const server=await db.server.update({
             where:{
@@ -62,7 +62,7 @@ export async function DELETE(req:NextRequest,{params}:{params:{memberId:string}}
         const searchParams=req.nextUrl.searchParams
         const serverId=searchParams.get( `serverId`)
         if(!serverId){
-            return null
+            return new NextResponse("Server ID is required", { status: 400 });
         }
         const member=await db.member.delete(
             {
@@ -75,6 +75,8 @@ export async function DELETE(req:NextRequest,{params}:{params:{memberId:string}}
         return    NextResponse.json(member)
     }catch(err){
         console.log(`[you deserve this for kicking a fellow member] ,${err}`)
+        return new NextResponse("Internal Server Error", { status: 500 }); // Ensure error responses are sent
+
     }
 
 }

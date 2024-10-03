@@ -53,7 +53,7 @@ export const SocketProvider=({children}:{children:React.ReactNode})=>{
         //     console.log(`CONTEXT FOR THE DISCONECT ${JSON.stringify(details.context)}`);
         //   });
 
-        socketInstance.on("connect_error", (err) => {
+        socketInstance.on("connect_error", (err:any) => {
             // the reason of the error, for example "xhr poll error"
             console.log(err.message);
           

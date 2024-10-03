@@ -135,7 +135,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
             />
             {textChannels.map((channel) => {
                 return (
-                    <ServerChannel channel={channel} role={role} server={servers}
+                    <ServerChannel key={channel.id} channel={channel} role={role} server={servers}
 
                     />
                 )
@@ -163,7 +163,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
             />
             {videoChannels.map((channel) => {
                 return (
-                    <ServerChannel channel={channel} role={role} server={servers}
+                    <ServerChannel key={channel.id} channel={channel} role={role} server={servers}
 
                     />
                 )
@@ -180,6 +180,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
                 } else {
                     return (
                         <ServerMembers
+                           key={profile.id}
                             member={member}
                             server={servers}
                             role={role}

@@ -59,7 +59,7 @@ export const ServerChannel = ({ channel, server, role }: ServerChannelProps) => 
     return (
         <>
             <button onClick={() => {
-                router.push(`/servers/${params.serverId}/channels/${channel.id}`)
+                router.push(`/servers/${params?.serverId}/channels/${channel.id}`)
                 return
             }}>
                 <div className="flex items-center mt-2 text-channels-list-color">
