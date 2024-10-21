@@ -7,10 +7,19 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware((auth, request) => {
-  if(!isPublicRoute(request)) {
-    auth().protect();
+  try {
+    console.log('Request URL:', request.url);  // Add this line for logging the request URL
+    if (!isPublicRoute(request)) {
+      console.log('Route is protected:', request.url);  // Log when a route is being protected
+      auth().protect();
+    } else {
+      console.log('Route is public:', request.url);  // Log when a route is public
+    }
+  } catch (error) {
+    console.error('Clerk middleware error:', error);
   }
 });
+
 
 export const config = {
   matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
