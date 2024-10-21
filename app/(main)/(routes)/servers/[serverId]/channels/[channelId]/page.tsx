@@ -40,17 +40,18 @@ async function ChannelsIdPage({ params }: ChannelIdPageProps) {
 
             ></ChatHeader>
 
-            <ChatMessages name={channel.name} member={member} chatId={channel.id} apiUrl={"/api/socket/messages"} socketUrl={"/api"} socketQuery={{
+        { channel.type !=="VIDEO" && <ChatMessages name={channel.name} member={member} chatId={channel.id} apiUrl={"/api/socket/messages"} socketUrl={"/api"} socketQuery={{
                 channelId: channel.id,
                 serverId: params.serverId
             }} paramKey={"channelId"} paramValue={channel.id} type={"channel"} />
+        }
 
-            <ChatInput apiUrl={"/api/socket/messages"} query={{
+           {channel.type !=="VIDEO" && <ChatInput apiUrl={"/api/socket/messages"} query={{
                 channelId: channel.id,
                 serverId: params.serverId
             }} name={channel.name} type={"channel"}
             ></ChatInput>
-
+}
 
             {channel.type === "VIDEO" && (
                 <VideoStream channelId={channel.id} />
