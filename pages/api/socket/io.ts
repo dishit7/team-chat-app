@@ -35,7 +35,7 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
         socket.join(channelId);
         console.log(`Client ${socket.id} joined channel ${channelId}`);
         socket.to(channelId).emit('user-joined');
-c
+
       });
 
       socket.on('leave-channel', (channelId) => {
