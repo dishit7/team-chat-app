@@ -30,7 +30,7 @@ import { useState } from "react"
    const {server}=data 
    const origin =useOrigin()
    const router= useRouter() 
-   console.log(`origin is ${origin} and serverdata is ${JSON.stringify(data)}`)
+   //console.log(`origin is ${origin} and serverdata is ${JSON.stringify(data)}`)
    const invite_link=`${origin}/invite/${server?.inviteCode}`
    
      const onNew=async()=>{

@@ -1,0 +1,191 @@
+diff --git a/components/video/video-stream.tsx b/components/video/video-stream.tsx
+index dc7ffaf7..26dba77e 100644
+--- a/components/video/video-stream.tsx
++++ b/components/video/video-stream.tsx
+@@ -11,50 +11,53 @@ const VideoStream: React.FC<VideoStreamProps> = ({ channelId }) => {
+   const localVideoRef = useRef<HTMLVideoElement>(null);
+   const remoteVideoRef = useRef<HTMLVideoElement>(null);
+   const peerConnection = useRef<RTCPeerConnection | null>(null);
++  const iceCandidatesBuffer = useRef<RTCIceCandidate[]>([]);
+ 
+-  useEffect(() => {
+-    if (!isConnected || !socket) {
+-      console.log('Socket is not connected yet.');
+-      return;
+-    }
++  const createPeerConnection = () => {
++    peerConnection.current = new RTCPeerConnection({
++      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
++    });
+ 
+-    console.log('Socket connected, initializing video stream logic.');
+-  }, [isConnected]);
++    peerConnection.current.onicecandidate = (event) => {
++      if (event.candidate) {
++        console.log('Emitting ICE candidate', event.candidate);
++        socket?.emit('ice-candidate', { channelId, candidate: event.candidate });
++      }
++    };
++    peerConnection.current.ontrack = (event) => {
++      console.log('Received remote track:', event.streams[0]);
++      if (remoteVideoRef.current) {
++        remoteVideoRef.current.srcObject = event.streams[0];
++        console.log('Remote video stream set successfully.');
++      } else {
++        console.warn('Remote video element not available.');
++      }
++    };
++    
++    return peerConnection.current;
++  };
++
++  const handleIceCandidate = async (candidate: RTCIceCandidate) => {
++    if (peerConnection.current?.remoteDescription) {
++      await peerConnection.current.addIceCandidate(candidate);
++    } else {
++      iceCandidatesBuffer.current.push(candidate);
++    }
++  };
+ 
+   useEffect(() => {
+     if (!socket || !isConnected) return;
+ 
+-    const initializePeerConnection = async () => {
+-      peerConnection.current = new RTCPeerConnection({
+-        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
+-      });
+-
+-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+-      if (localVideoRef.current) {
+-        localVideoRef.current.srcObject = stream;
+-      }
+-
+-      stream.getTracks().forEach((track) => {
+-        peerConnection.current?.addTrack(track, stream);
+-      });
+-
+-      peerConnection.current.ontrack = (event) => {
+-        if (remoteVideoRef.current) {
+-          remoteVideoRef.current.srcObject = event.streams[0];
+-        }
+-      };
+-
+-      peerConnection.current.onicecandidate = (event) => {
+-        if (event.candidate) {
+-          console.log('Emitting ICE candidate', event.candidate);
+-          socket.emit('ice-candidate', { channelId, candidate: event.candidate });
++    const initializeMediaStream = async () => {
++      try {
++        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
++        if (localVideoRef.current) {
++          localVideoRef.current.srcObject = stream;
+         }
+-      };
+-
+-      const offer = await peerConnection.current.createOffer();
+-      await peerConnection.current.setLocalDescription(offer);
+-      console.log('Emitting offer', offer);
+-      socket.emit('offer', { channelId, offer });
++        return stream;
++      } catch (error) {
++        console.error('Error accessing media devices:', error);
++      }
+     };
+ 
+     const joinChannel = () => {
+@@ -62,45 +65,57 @@ const VideoStream: React.FC<VideoStreamProps> = ({ channelId }) => {
+       socket.emit('join-channel', channelId);
+     };
+ 
+-    const leaveChannel = () => {
+-      console.log(`Leaving channel ${channelId}`);
+-      socket.emit('leave-channel', channelId);
+-    };
+-
+- 
+     joinChannel();
++
+     socket.on('user-joined', async () => {
+       console.log('Another user joined, creating offer');
+-      await initializePeerConnection();
++      const pc = createPeerConnection();
++      const stream = await initializeMediaStream();
++      stream?.getTracks().forEach((track) => pc.addTrack(track, stream));
++
++      const offer = await pc.createOffer();
++      await pc.setLocalDescription(offer);
++      console.log('Emitting offer', offer);
++      socket.emit('offer', { channelId, offer });
+     });
+-     
+-    
++
+     socket.on('offer', async ({ offer }) => {
+-      console.log(`offer happened ${offer}`)
+-      if (!peerConnection.current) await initializePeerConnection();
+-      await peerConnection.current?.setRemoteDescription(new RTCSessionDescription(offer));
+-      const answer = await peerConnection.current?.createAnswer();
+-      await peerConnection.current?.setLocalDescription(answer);
++      console.log(`Offer received:`, offer);
++      const pc = createPeerConnection();
++      const stream = await initializeMediaStream();
++      stream?.getTracks().forEach((track) => pc.addTrack(track, stream));
++
++      await pc.setRemoteDescription(new RTCSessionDescription(offer));
++      const answer = await pc.createAnswer();
++      await pc.setLocalDescription(answer);
++      console.log('Emitting answer:', answer);
+       socket.emit('answer', { channelId, answer });
+-    });
+ 
++      // Process buffered ICE candidates
++      while (iceCandidatesBuffer.current.length) {
++        const candidate = iceCandidatesBuffer.current.shift();
++        await pc.addIceCandidate(candidate!);
++      }
++    });
+     socket.on('answer', async ({ answer }) => {
+-      console.log(`answer happened ${answer}`)
+-      await peerConnection.current?.setRemoteDescription(new RTCSessionDescription(answer));
++      console.log(`Answer received:`, answer);
++      if (peerConnection.current?.signalingState === 'have-remote-offer') {
++        await peerConnection.current.setRemoteDescription(new RTCSessionDescription(answer));
++      } else {
++        console.warn('Ignoring answer because connection is in stable state.');
++      }
+     });
++    
+ 
+     socket.on('ice-candidate', async ({ candidate }) => {
+-
+-    console.log('Received ICE candidate', candidate);
+-
+-      console.log(`ice-candidate happened ${answer}`)
+-
+-      await peerConnection.current?.addIceCandidate(new RTCIceCandidate(candidate));
++      console.log('Received ICE candidate', candidate);
++      await handleIceCandidate(new RTCIceCandidate(candidate));
+     });
+ 
+-     
+     return () => {
+-      leaveChannel();
++      console.log(`Leaving channel ${channelId}`);
++      socket.emit('leave-channel', channelId);
++      socket.off('user-joined');
+       socket.off('offer');
+       socket.off('answer');
+       socket.off('ice-candidate');
+@@ -111,9 +126,9 @@ const VideoStream: React.FC<VideoStreamProps> = ({ channelId }) => {
+   return (
+     <div>
+       <video ref={localVideoRef} autoPlay muted playsInline />
+-      <video ref={remoteVideoRef} autoPlay playsInline />
++      <video ref={remoteVideoRef}  autoPlay playsInline muted />
+     </div>
+   );
+ };
+ 
+-export default VideoStream;
++export default VideoStream;
+\ No newline at end of file
