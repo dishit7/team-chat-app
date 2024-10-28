@@ -10,7 +10,7 @@ import { UserButton } from "@clerk/nextjs"
 
 
 export const NavigationSideBar =async()=>{
-    console.log("nav sidebar here")
+    //console.log("nav sidebar here")
     const profile=  await currentProfile()
     console.log(profile)
     if(!profile){
@@ -27,7 +27,7 @@ export const NavigationSideBar =async()=>{
             }
         }
     })
-    console.log(servers)
+    //console.log(servers)
     //dark:bg-[#1e1f22] bg-[#f0f0f0]
     return ( 
        <div className=" space-y-4   flex flex-col items-center h-full text-text py-3 bg-navbar   ">

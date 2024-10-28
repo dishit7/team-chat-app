@@ -56,13 +56,13 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
     const channels = await db.channel.findMany({
         where: { serverId: serverId }
       });
-      console.log(`CHANNELS ARE :${JSON.stringify(channels)} channels`);
+     // console.log(`CHANNELS ARE :${JSON.stringify(channels)} channels`);
     const members = servers?.members
-    console.log(`SERVER ID WE ARE SEARCHING FOR ${serverId}`)
-    console.log(`SERVERS FOR HANMADISH ARE ${JSON.stringify(servers)}`)
+    //console.log(`SERVER ID WE ARE SEARCHING FOR ${serverId}`)
+    //console.log(`SERVERS FOR HANMADISH ARE ${JSON.stringify(servers)}`)
 
   //  console.log(`there are lot of members ${members}`)
-    console.log(`CHANNELS FOR HANMADISH ARE ${JSON.stringify(servers?.channels)}`)
+  //  console.log(`CHANNELS FOR HANMADISH ARE ${JSON.stringify(servers?.channels)}`)
 
 
     if (!servers) {
@@ -76,8 +76,8 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
     const videoChannels = servers.channels.filter((channel) => channel.type === "VIDEO")
 
     const role = servers?.members.find((member) => member.profile.id === profile.id)?.role
-    console.log(`role of our member is ${role}`)
-    console.log(`servers are ${JSON.stringify(servers)}`)
+    //console.log(`role of our member is ${role}`)
+    //console.log(`servers are ${JSON.stringify(servers)}`)
 
 
     return (

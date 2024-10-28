@@ -6,7 +6,7 @@ interface ServerIdPageProps{
    }
 }
 const ServerIdPage = ({params}:ServerIdPageProps) => {
- console.log(`params.serverId is ${params.serverId}`)    
+ //console.log(`params.serverId is ${params.serverId}`)    
     return (<>
         <MobileToggle serverId={params.serverId} />
         <h1>{params.serverId}</h1>

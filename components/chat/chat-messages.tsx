@@ -40,7 +40,7 @@ export function ChatMessages({
     const queryKey=`chat:${chatId}`
     const addKey=`chat:${chatId}:messages`
     const updateKey=`chat:${chatId}:messages:update`
-    console.log(`ADD KEY FOR THIS CHAT IS ${chatId}`)
+     console.log(`ADD KEY FOR THIS CHAT IS ${chatId}`)
     useChatSocketHook({queryKey,addKey,updateKey})
     
     type MessageWithMembersWithProfiles=Message&{member:Member&{
@@ -83,12 +83,13 @@ export function ChatMessages({
                 
                 {
                     data?.pages.map((group,i)=>{
-                        console.log("Mapping fragments here")
-                        console.log("Group Items:", group.items);
+                    //    console.log("Mapping fragments here")
+                      //  console.log("Group Items:", group.items);
                         return (
                             <Fragment key={i}>
                                { group.items.map((message:MessageWithMembersWithProfiles)=>{
-                                  {console.log(`MESSAGE is ${message.content}`)}
+                                  {//console.log(`MESSAGE is ${message.content}`)
+                                }
                                 return (
                                      
                                     <ChatItems  key={message.id}  id={message.id} content={message.content} fileUrl={null} member={message.member} channelId={message.channelId} deleted={false} createdAt={message.createdAt} updatedAt={message.updatedAt} apiUrl={"/api/socket/messages"} socketUrl={"/api"} socketQuery={socketQuery} />

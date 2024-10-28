@@ -5,7 +5,7 @@ import styles from './ServerSideBarLayout.module.css'
 const ServerSideBarLayout=async({children,params}:{
     children:React.ReactNode
     params:{serverId:string}})=>{
-        console.log(`serverId is ${params.serverId}`)
+        //console.log(`serverId is ${params.serverId}`)
         //#f1f5f9
         //dark:bg-[#2b2d31]  bg-[#ffffff]
 return (

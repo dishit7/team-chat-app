@@ -32,9 +32,9 @@ async function handlePost(req: NextApiRequest, res: NextApiResponseServerIo) {
         const serverId = req.query.serverId as string;
         const channelId = req.query.channelId as string;
 
-        console.log(`NEW the body is ${JSON.stringify({ body })}`);
-        console.log(`serverid and channels id are ${serverId} ${channelId}`);
-        console.log(`the file url is ${JSON.stringify(fileUrl)} and server id is ${serverId} those uploads right`);
+     //   console.log(`NEW the body is ${JSON.stringify({ body })}`);
+       // console.log(`serverid and channels id are ${serverId} ${channelId}`);
+        //console.log(`the file url is ${JSON.stringify(fileUrl)} and server id is ${serverId} those uploads right`);
 
         if (!content) {
             return res.status(400).json({ message: "Content is missing" });

@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 const SetupPage = async () => {
   const profile = await initialProfile();
-  console.log('Fetched profile:', profile); // Debugging log
+ // console.log('Fetched profile:', profile); // Debugging log
 
   if (!profile || !profile.id) {
     // Handle the case where profile is undefined or doesn't have an id

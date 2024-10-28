@@ -44,10 +44,12 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
       });
 
       socket.on('offer', ({ channelId, offer }) => {
+        console.log(`offer  emitting to ${channelId}`)
         socket.to(channelId).emit('offer', { offer });
       });
 
       socket.on('answer', ({ channelId, answer }) => {
+        console.log(`answer  emitting to ${channelId}`)
         socket.to(channelId).emit('answer', { answer });
       });
 
