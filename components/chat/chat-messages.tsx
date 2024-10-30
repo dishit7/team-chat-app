@@ -4,7 +4,7 @@ import {Message, Member, Profile} from "@prisma/client"
 import { ChatWelcome } from "./chat-welcome"
 import { useChatQuery } from "@/hooks/use-chatQuery"
 import { Loader2, ServerCrash } from "lucide-react"
-import { Fragment } from "react"
+import { Fragment, useEffect, useRef } from "react"
 import { ChatItems } from "./chat-items"
 import { channel } from "process"
 import { UploadAbortedError } from "@uploadthing/shared"
@@ -40,7 +40,7 @@ export function ChatMessages({
     const queryKey=`chat:${chatId}`
     const addKey=`chat:${chatId}:messages`
     const updateKey=`chat:${chatId}:messages:update`
-     console.log(`ADD KEY FOR THIS CHAT IS ${chatId}`)
+    console.log(`ADD KEY FOR THIS CHAT IS ${chatId}`)
     useChatSocketHook({queryKey,addKey,updateKey})
     
     type MessageWithMembersWithProfiles=Message&{member:Member&{
@@ -54,6 +54,36 @@ export function ChatMessages({
         status 
     } = useChatQuery({queryKey,apiUrl,paramKey,paramValue})
 
+    
+    const scrollToBottom = () => {
+        const scrollContainer = scrollRef.current
+        if (scrollContainer) {
+          scrollContainer.scrollTop = scrollContainer.scrollHeight
+        }
+      }
+
+      useEffect(() => {
+        if (data) scrollToBottom()
+      }, [data])
+    
+    const scrollRef = useRef<HTMLDivElement>(null)
+
+    // Scroll event listener to detect when user scrolls near the top
+    useEffect(() => {
+      const scrollContainer = scrollRef.current
+      if (!scrollContainer) return
+  
+      const handleScroll = () => {
+        // If user is near the top and there's more data to load, fetch next page
+        if (scrollContainer.scrollTop < 100 && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage()
+        }
+      }
+  
+      scrollContainer.addEventListener('scroll', handleScroll)
+      return () => scrollContainer.removeEventListener('scroll', handleScroll)
+    }, [fetchNextPage, hasNextPage, isFetchingNextPage])
+  
 
     if(status==="pending")
     {
@@ -74,7 +104,7 @@ export function ChatMessages({
     }
     return (
 
-        < div className = "flex-1 flex flex-col overflow-y-auto" >
+        < div className = "flex-1 flex flex-col overflow-y-auto" ref={scrollRef}>
                    <div className="flex-1" />
             
             <ChatWelcome /> 
