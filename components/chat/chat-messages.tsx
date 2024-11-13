@@ -109,7 +109,7 @@ export function ChatMessages({
             
             <ChatWelcome /> 
             <h1>{addKey}</h1>
-            <div className="flex flex-col-reverse mt-auto border border-purple-600 ">
+            <div className="flex flex-col-reverse mt-auto border   ">
                 
                 {
                     data?.pages.map((group,i)=>{

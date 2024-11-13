@@ -32,7 +32,7 @@ async function ChannelsIdPage({ params }: ChannelIdPageProps) {
         redirect("/")
     }
     return (
-        <div className="flex flex-col h-full border border-red-800 ">
+        <div className="flex flex-col h-full border  ">
             <ChatHeader
                 serverId={params.serverId}
                 name={channel.name}

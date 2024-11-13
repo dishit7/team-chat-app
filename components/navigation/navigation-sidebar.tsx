@@ -31,7 +31,7 @@ export const NavigationSideBar =async()=>{
     //dark:bg-[#1e1f22] bg-[#f0f0f0]
     return ( 
        <div className=" space-y-4   flex flex-col items-center h-full text-text py-3 bg-navbar   ">
-         NavSidebar
+          
         <NavigationAction />
         <Separator />
         <ScrollArea className="flex-1">

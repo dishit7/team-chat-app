@@ -3,7 +3,7 @@ import styles from './MainLayout.module.css'
 const MainLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-full ">
-      <div className={styles.navigationSidebar}>navigationSidebar
+      <div className={styles.navigationSidebar}>
         <NavigationSideBar />
       </div>
       <main className="h-full md:pl-[72px]">

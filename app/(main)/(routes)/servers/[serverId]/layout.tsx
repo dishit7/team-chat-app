@@ -13,7 +13,7 @@ return (
     <div className={styles.sidebar}>
     <ServerSideBar serverId={params.serverId} />
     </div>
-    <div className="flex-1 flex flex-col h-full md:ml-[240px] text-text border border-blue-700">
+    <div className="flex-1 flex flex-col h-full md:ml-[240px] text-text border  ">
      {children}
     </div>
 </div>
