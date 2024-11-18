@@ -1,104 +1,109 @@
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  @layer base {
-    :root {
-      --background: 0 0% 100%;
-      --foreground: 20 14.3% 4.1%;
+@layer base {
+  :root {
+      .grad-main {
+          background: linear-gradient(135deg, #16222A ,#3A6073);
+          background-size: 400% 400%;
+          animation: gradient-x 15s ease infinite;
+        }
+      
+        @keyframes gradient-x {
+      
+          0%,
+          100% {
+            background-position: 200% 0%;
+          }
+      
+          50% {
+            background-position: -200% 0%;
+          }
+        }
 
-      --card: 0 0% 100%;
-      --card-foreground: 20 14.3% 4.1%;
+    --background: 240 17% 12%;
+    --foreground: 187 100% 42%;
 
-      --popover: 0 0% 100%;
-      --popover-foreground: 20 14.3% 4.1%;
+    /* Neon accent colors */
+    --primary: 326 100% 60%;
+    /* Neon pink */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 187 100% 42%;
+    /* Neon cyan */
+    --secondary-foreground: 0 0% 100%;
+    --accent: 275 100% 57%;
+    /* Neon purple */
+    --accent-foreground: 0 0% 100%;
 
-      --primary: 24 9.8% 10%;
-      --primary-foreground: 60 9.1% 97.8%;
+    /* UI Structure Colors */
+    --navbar-color-light: #1a1b2e;
+    --server-sidebar-color-light: #16171f;
+    --main-interface-color-light: #1e2033;
+    --text-light: #00fff9;
 
-      --secondary: 60 4.8% 95.9%;
-      --secondary-foreground: 24 9.8% 10%;
+    /* Dark mode variations */
+    --navbar-color-dark: #0d0d14;
+    --server-sidebar-color-dark: #13141b;
+    --main-interface-color-dark: #181925;
+    --text-dark: #ff2ec4;
 
-      --muted: 60 4.8% 95.9%;
-      --muted-foreground: 25 5.3% 44.7%;
+    /* Channel colors */
+    --channels-list-color-light: #ff2ec4;
+    /* Neon pink */
+    --channels-list-color-dark: #00fff9;
+    /* Neon cyan */
 
-      --accent: 60 4.8% 95.9%;
-      --accent-foreground: 24 9.8% 10%;
+    /* Functional colors */
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --muted: 240 17% 20%;
+    --muted-foreground: 187 100% 42%;
+    --border: 187 100% 42%;
+    --input: 240 17% 15%;
+    --ring: 187 100% 42%;
+    --radius: 0.25rem;
 
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 60 9.1% 97.8%;
-
-      --border: 20 5.9% 90%;
-      --input: 20 5.9% 90%;
-      --ring: 20 14.3% 4.1%;
-
-      --radius: 0.5rem;
-
-      --navbar-color-light: #ffffff;
-      --server-sidebar-color-light: #e3e5e8;
-      --main-interface-color-light: #f2f3f5;
-      --text-light: #2c2f33;
-    
-      --navbar-color-dark: #202225;
-      --server-sidebar-color-dark: #2f3136;
-      --main-interface-color-dark: #36393f;
-      --text-dark: #ffffff;
-      --channels-list-color-light:#a1a1aa ;
-      --channels-list-color-dark:#a1a1aa ; 
-    
-      /* Default to light mode */
-      --navbar-color: var(--navbar-color-light);
-      --server-sidebar-color: var(--server-sidebar-color-light);
-      --main-interface-color: var(--main-interface-color-light);
-      --text-color: var(--text-light);
-      --channels-list-color: var(--channels-list-color-light)       /* In the server side bar when you list the channels name under heading TEXT,AUDIO,VIDEO channels this style is for those channel names */
-
-    }
-
-    .dark {
-      --background: 20 14.3% 4.1%;
-      --foreground: 60 9.1% 97.8%;
-
-      --card: 20 14.3% 4.1%;
-      --card-foreground: 60 9.1% 97.8%;
-
-      --popover: 20 14.3% 4.1%;
-      --popover-foreground: 60 9.1% 97.8%;
-
-      --primary: 60 9.1% 97.8%;
-      --primary-foreground: 24 9.8% 10%;
-
-      --secondary: 12 6.5% 15.1%;
-      --secondary-foreground: 60 9.1% 97.8%;
-
-      --muted: 12 6.5% 15.1%;
-      --muted-foreground: 24 5.4% 63.9%;
-
-      --accent: 12 6.5% 15.1%;
-      --accent-foreground: 60 9.1% 97.8%;
-
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 60 9.1% 97.8%;
-
-      --border: 12 6.5% 15.1%;
-      --input: 12 6.5% 15.1%;
-      --ring: 24 5.7% 82.9%;
-
-      --navbar-color: var(--navbar-color-dark);
-      --server-sidebar-color: var(--server-sidebar-color-dark);
-      --main-interface-color: var(--main-interface-color-dark);
-      --text-color: var(--text-dark);
-      --channels-list-color:  var(--channels-list-color-dark) /* In the server side bar when you list the channels name under heading TEXT,AUDIO,VIDEO channels this style is for those channel names */
-
-    
-    }
+    /* Default assignments */
+    --navbar-color: var(--navbar-color-light);
+    --server-sidebar-color: var(--server-sidebar-color-light);
+    --main-interface-color: var(--main-interface-color-light);
+    --text-color: var(--text-light);
+    --channels-list-color: var(--channels-list-color-light);
   }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+  .dark {
+    --background: 240 17% 8%;
+    --foreground: 326 100% 60%;
+
+    --primary: 187 100% 42%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 326 100% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Dark mode assignments */
+    --navbar-color: var(--navbar-color-dark);
+    --server-sidebar-color: var(--server-sidebar-color-dark);
+    --main-interface-color: var(--main-interface-color-dark);
+    --text-color: var(--text-dark);
+    --channels-list-color: var(--channels-list-color-dark);
   }
+    .grad-main {
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      background-size: 400% 400%;
+      animation: gradient-x 15s ease infinite;
+    }
+}
+
+
+@layer base {
+  
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
