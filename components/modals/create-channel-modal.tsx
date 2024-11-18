@@ -57,7 +57,11 @@ import { useModal } from "@/hooks/use-modal-store"
    const {isOpen,onClose,type,data}=useModal()
    const isModalOpen=isOpen && type==="createChannel"
    const {server}=data
-   const onSubmit=async(values:z.infer<typeof formschema>)=>{
+     const onSubmit = async (values: z.infer<typeof formschema>) => {
+        if (!server?.id) {
+        console.error("Server ID is missing");
+        return;
+    }
        console.log(`the values after submiting are: ${JSON.stringify(values)}}`)
        await axios.post(`/api/servers/${server?.id}/create-channel`,values)
        form.reset()
