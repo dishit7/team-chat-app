@@ -15,8 +15,7 @@ return (
     <ServerSideBar serverId={params.serverId} />
     </div>
         <div className="flex-1 flex flex-col h-full md:ml-[240px] text-text grad-main  ">
-            MAIN TEXT
-             
+              
      {children}
     </div>
 </div> 
