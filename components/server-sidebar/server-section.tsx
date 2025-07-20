@@ -20,7 +20,7 @@ export const ServerSection=({label,sectionType,role,channelType,server}:ServerSe
      <div className="flex font-bold  text">{label}
      {role!=="GUEST" && sectionType==="Channels" &&(
      <ActionToolTip label="Create Channel" side="top">
-        <button onClick={()=>onOpen("createChannel",{server:server})}><Plus className="h-4 w-4 mx-1"/></button>
+        <button onClick={()=>onOpen("createChannel",{server:server})}><Plus className="h-4 w-4 mx-1"/> </button>
         </ActionToolTip>
         )
         }

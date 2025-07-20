@@ -105,14 +105,14 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
                 cursor: { id: cursor as string },
                 where: { conversationId: conversationId as string },
                 include: { member: { include: { profile: true } } },
-                orderBy: { createdAt: "desc" },
+                orderBy: { createdAt: "desc"  } as any,
             });
         } else {
             messages = await db.directMessage.findMany({
                 take: MESSAGES_BATCH,
                 where: { conversationId: conversationId as string },
                 include: { member: { include: { profile: true } } },
-                orderBy: { createdAt: "desc" },
+                orderBy: { createdAt: "desc" } as any
             });
         }
 

@@ -2,6 +2,7 @@ import ServerSideBar from "@/components/server-sidebar/server-sidebar"
 import { PathParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime"
 import { parseArgs } from "util"
 import styles from './ServerSideBarLayout.module.css'
+import { Button } from "@/components/ui/button"
 const ServerSideBarLayout=async({children,params}:{
     children:React.ReactNode
     params:{serverId:string}})=>{
@@ -13,10 +14,11 @@ return (
     <div className={styles.sidebar}>
     <ServerSideBar serverId={params.serverId} />
     </div>
-    <div className="flex-1 flex flex-col h-full md:ml-[240px] text-text border  ">
+        <div className="flex-1 flex flex-col h-full md:ml-[240px] text-text grad-main  ">
+              
      {children}
     </div>
-</div>
+</div> 
 )
 
 }

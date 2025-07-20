@@ -81,7 +81,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
 
 
     return (
-        <ScrollArea className="h-full ">
+        <ScrollArea className="h-full cyberpunk-sidebar">
             <ServerHeader server={servers} role={role} />
 
             <ServerSearchModal data={[{
@@ -132,6 +132,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
                 label="Text Channels"
                 sectionType="Channels"
                 role={role}
+                server={servers}
             />
             {textChannels.map((channel) => {
                 return (
