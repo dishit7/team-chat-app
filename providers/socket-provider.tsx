@@ -26,7 +26,6 @@ export const SocketProvider = ({
 
   useEffect(() => {
     const socketInstance = new (ClientIO as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
-      transports: ["websocket"],
       path: "/api/socket/io",
       reconnectionDelay: 1000,
       reconnection: true,
