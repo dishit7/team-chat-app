@@ -30,7 +30,8 @@ export const SocketProvider = ({
       reconnectionDelay: 1000,
       reconnection: true,
       reconnectionAttempts: 10, // Fixed typo
-      addTrailingSlash: false,
+      addTrailingSlash: true,
+      transports: ["websocket", "polling"],
     });
 
     // Handle connection established
